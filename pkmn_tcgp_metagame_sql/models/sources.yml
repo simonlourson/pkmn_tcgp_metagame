@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: cards
+        meta: 
+          dagster:
+            asset_key: ["raw_cards"]
+      - name: sets
+        meta: 
+          dagster:
+            asset_key: ["raw_sets"]
+      - name: evolutions
+        meta: 
+          dagster:
+            asset_key: ["raw_evolutions"]
+      - name: decklists
+        meta: 
+          dagster:
+            asset_key: ["raw_decklists"]
+      - name: tournaments
+        meta: 
+          dagster:
+            asset_key: ["raw_tournaments"]
+      - name: matches
+        meta: 
+          dagster:
+            asset_key: ["raw_matches"]
+      - name: translations
+        meta: 
+          dagster:
+            asset_key: ["raw_translations"]

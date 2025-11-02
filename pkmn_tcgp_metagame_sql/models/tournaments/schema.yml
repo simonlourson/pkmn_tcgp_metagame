@@ -1,0 +1,52 @@
+
+version: 2
+
+models:
+  - name: tournaments
+    description: "Tournaments"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [tournament_id]
+    columns:
+      - name: tournament_id
+        description: Identifier for this tournament
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: set_code
+        description: The most recent set id in all cards in all decklists for this tournament
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('sets')
+              field: set_code
+      - name: tournament_name
+        description: Name of this tournament
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: tournament_organizer
+        description: Organizer of this tournament
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: tournament_date
+        description: Date of the tournament start
+        data_type: timestamp
+      - name: day_in_season
+        description: The number of (non-consecutive) days since tournament start 
+        data_type: int
+        data_tests:
+          - not_null
+      - name: week_in_season
+        description: The number of (non-consecutive) weeks since tournament start 
+        data_type: int
+        data_tests:
+          - not_null
+

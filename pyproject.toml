@@ -1,0 +1,45 @@
+[project]
+name = "pkmn_tcgp_metagame"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9,<3.13"
+dependencies = [
+  "dagster",
+  "dagster-cloud",
+  "dagster-postgres",
+  "dagster-dbt",
+  "dbt-core",
+  "dbt-postgres",
+  "aiohttp",
+  "aiofile",
+  "asyncio",
+  "beautifulsoup4",
+  "psycopg"
+]
+
+[project.optional-dependencies]
+dev = [
+  "dagster-webserver", 
+  "pytest",
+  "ruff",
+  "sqlfluff",
+  "sqlfluff-templater-dbt",
+]
+
+[tool.uv]
+dev-dependencies = [
+  "dagster-webserver",
+  "pytest",
+  "ruff",
+  "sqlfluff",
+  "sqlfluff-templater-dbt",
+]
+
+[tool.dagster]
+module_name = "pkmn_tcgp_metagame.definitions"
+code_location_name = "pkmn_tcgp_metagame"
+
+[tool.ruff]
+indent-width = 2
+lint.extend-select = ["I"]

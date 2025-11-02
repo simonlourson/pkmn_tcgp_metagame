@@ -1,0 +1,46 @@
+
+version: 2
+
+models:
+  - name: matches
+    description: "A match in a tournament"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    columns:
+      - name: tournament_id
+        description: The tournament in which this match took place
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('tournaments')
+              field: tournament_id
+      - name: winner_decklist_id
+        description: The id of the winner deck, a composite key of tournament_id and player_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decklists')
+              field: decklist_id
+      - name: winner_player_id
+        description: The id of the winner
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: loser_decklist_id
+        description: The id of the loser deck, a composite key of tournament_id and player_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decklists')
+              field: decklist_id
+      - name: loser_player_id
+        description: The id of the loser
+        data_type: varchar
+        data_tests:
+          - not_null
+

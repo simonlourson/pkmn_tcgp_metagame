@@ -1,0 +1,30 @@
+
+version: 2
+
+models:
+  - name: sets
+    description: "Set database"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code]
+    columns:
+      - name: set_code
+        description: The set identifier
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: set_name
+        description: The full set name
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: set_release_date
+        description: The set release date, or null for promo cards
+        data_type: timestamp
+

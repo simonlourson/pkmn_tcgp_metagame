@@ -1,0 +1,114 @@
+
+version: 2
+
+models:
+  - name: decklists
+    description: "Decklists used in tournaments"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [decklist_id, card_url]
+    columns:
+      - name: decklist_id
+        description: A composite key made of tournament_id and player_id
+        data_type: text
+        data_tests:
+          - not_null
+      - name: tournament_id
+        description: The tournament this decklist was submitted in
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: player_id
+        description: The player that submitted this decklist
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_url
+        description: The card_url that was submitted
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('cards')
+              field: card_url
+      - name: decklist_count
+        description: How many of that card was in the deck
+        data_type: int
+        data_tests:
+          - not_null
+  - name: decklists_pruned
+    description: "A decklists with only the most important cards : only the latest stage of each pokemon in that deck, and excluding trainer cards"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [decklist_id, card_url]
+    columns:
+      - name: decklist_id
+        description: A composite key made of tournament_id and player_id
+        data_type: text
+        data_tests:
+          - not_null
+      - name: tournament_id
+        description: The tournament this decklist was submitted in
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: player_id
+        description: The player that submitted this decklist
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_url
+        description: The card_url that was submitted
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('cards')
+              field: card_url
+      - name: decklist_count
+        description: How many of that card was in the deck
+        data_type: int
+        data_tests:
+          - not_null
+  - name: decklists_aggregated
+    description: "One line per tournament per player, the most important cards are aggregated into a single line"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [decklist_id]
+    columns:
+      - name: decklist_id
+        description: A composite key made of tournament_id and player_id
+        data_type: text
+        data_tests:
+          - not_null
+          - unique
+      - name: tournament_id
+        description: The tournament this decklist was submitted in
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: player_id
+        description: The player that submitted this decklist
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: deck_id
+        description: The aggregated string containing the most important cards of the deck
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id

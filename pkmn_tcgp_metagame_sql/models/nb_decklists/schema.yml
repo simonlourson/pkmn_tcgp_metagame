@@ -1,0 +1,102 @@
+
+version: 2
+
+models:
+  - name: nb_decklists_per_season_per_deck
+    description: for each set and each deck, the number of submitted decklists
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, deck_id]
+    columns:
+      - name: set_code
+        description: The tournament set code for when the decklists were submitted
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: deck_id
+        description: Deck id for the submitted decklists
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id
+      - name: nb_decklists
+        description: Number of submitted decklists
+        data_type: int
+        data_tests:
+          - not_null
+  - name: nb_decklists_per_season
+    description: for each set, the number of submitted decklists
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code]
+    columns:
+      - name: set_code
+        description: The tournament set code for when the decklists were submitted
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: nb_decklists
+        description: Number of submitted decklists
+        data_type: int
+        data_tests:
+          - not_null
+  - name: nb_decklists_per_season_per_week
+    description: for each set and each week, the number of submitted decklists
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, week_in_season]
+    columns:
+      - name: set_code
+        description: The tournament set code for when the decklists were submitted
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: week_in_season
+        description: The number of the week in the current season
+        data_type: int
+        data_tests:
+          - not_null
+      - name: nb_decklists
+        description: Number of submitted decklists
+        data_type: int
+        data_tests:
+          - not_null
+  - name: nb_decklists_per_season_per_day
+    description: for each set and each day, the number of submitted decklists
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, day_in_season]
+    columns:
+      - name: set_code
+        description: The tournament set code for when the decklists were submitted
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: day_in_season
+        description: The number of the day in the current season
+        data_type: int
+        data_tests:
+          - not_null
+      - name: nb_decklists
+        description: Number of submitted decklists
+        data_type: int
+        data_tests:
+          - not_null

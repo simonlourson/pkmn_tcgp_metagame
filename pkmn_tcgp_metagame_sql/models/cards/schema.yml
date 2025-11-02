@@ -1,0 +1,74 @@
+
+version: 2
+
+models:
+  - name: cards
+    description: "Card database"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [card_url]
+    columns:
+      - name: card_url
+        description: The card url (without base url)
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: set_code
+        description: The set code ('A1', 'A1a', 'A2', ...) this card is from
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('sets')
+              field: set_code
+      - name: card_number
+        description: The card collector number in its set
+        data_type: int
+        data_tests:
+          - not_null
+      - name: card_name
+        description: The name of the card
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_name_en
+        description: The name of the card in english
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_name_fr
+        description: The name of the card in french
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_name_with_set
+        description: The name of the card, with the set
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_type
+        description: The card type (Pokémon or Trainer)
+        data_type: varchar
+        data_tests:
+          - not_null
+          - accepted_values:
+              name: card_type_is_pokemon_or_trainer
+              values: ['Pokémon', 'Trainer']
+      - name: card_subtype
+        description: The card subtype (Item, Supporter, or any of the pokemon types)
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: card_stage
+        description: If the card is a Pokémon, its stage (Basic, Stage 1, Stage 2)
+        data_type: varchar
+        data_tests:
+          - accepted_values:
+              name: card_stage_is_basic_stage1_or_stage2
+              values: ['Basic', 'Stage 1', 'Stage 2']
+

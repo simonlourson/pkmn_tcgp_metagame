@@ -1,0 +1,32 @@
+
+version: 2
+
+models:
+  - name: evolutions
+    description: Link between a previous stage and a next stage of pokemon evolution
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [previous_stage_url, next_stage_url]
+    columns:
+      - name: previous_stage_url
+        description: The card url for the previous stage
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('cards')
+              field: card_url
+      - name: next_stage_url
+        description: The card url for the next stage
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('cards')
+              field: card_url
+
+

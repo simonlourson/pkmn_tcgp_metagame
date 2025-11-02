@@ -1,0 +1,10 @@
+name: 'pkmn_tcgp_metagame_sql'
+version: '1.0.0'
+profile: 'pkmn_tcgp_metagame_sql'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"

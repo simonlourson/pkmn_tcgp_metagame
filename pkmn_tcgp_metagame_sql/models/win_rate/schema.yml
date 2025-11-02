@@ -1,0 +1,89 @@
+
+version: 2
+
+models:
+  - name: deck_against_deck_win_rate
+    description: for each set and each deck, its number of wins, number of losses, and win rate against each other deck, based on played matches
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, deck_id, against_deck_id]
+    columns:
+      - name: set_code
+        description: The tournament set code for when matches used for this stats occured
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: deck_id
+        description: Deck id for these stats
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id
+      - name: against_deck_id
+        description: Against what deck id for these stats
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id
+      - name: nb_wins
+        description: Number of wins of deck_id against against_deck_id in set set_code
+        data_type: int
+        data_tests:
+          - not_null
+      - name: nb_losses
+        description: Number of losses of deck_id against against_deck_id in set set_code
+        data_type: int
+        data_tests:
+          - not_null
+      - name: win_rate
+        description: win rate of deck_id against against_deck_id in set set_code
+        data_type: float
+        data_tests:
+          - not_null
+  - name: deck_win_rate
+    description: for each set and each deck, its number of wins, number of losses, and win rate, based on played matches
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, deck_id]
+    columns:
+      - name: set_code
+        description: The tournament set code for when matches used for this stats occured
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: deck_id
+        description: Deck id for these stats
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id
+      - name: nb_wins
+        description: Number of wins of deck_id against against_deck_id in set set_code
+        data_type: int
+        data_tests:
+          - not_null
+      - name: nb_losses
+        description: Number of losses of deck_id against against_deck_id in set set_code
+        data_type: int
+        data_tests:
+          - not_null
+      - name: win_rate
+        description: win rate of deck_id against against_deck_id in set set_code
+        data_type: float
+        data_tests:
+          - not_null
+

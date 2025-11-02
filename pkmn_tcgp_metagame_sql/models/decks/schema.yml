@@ -1,0 +1,26 @@
+
+version: 2
+
+models:
+  - name: decks
+    description: "Deck id and name"
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [deck_id]
+    columns:
+      - name: deck_id
+        description: All important cards in this deck, separated by '#'
+        data_type: varchar
+        data_tests:
+          - unique
+          - not_null
+      - name: deck_name
+        description: The human readable list of cards in this deck
+        data_type: varchar
+        data_tests:
+          - not_null
+

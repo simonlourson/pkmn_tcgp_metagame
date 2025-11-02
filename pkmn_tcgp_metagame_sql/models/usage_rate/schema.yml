@@ -1,0 +1,87 @@
+
+version: 2
+
+models:
+  - name: deck_usage
+    description: for each set and each deck, the number of decklists submitted
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, deck_id]
+    columns:
+      - name: set_code
+        description: The tournament set code for when matches used for this stats occured
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: deck_id
+        description: Deck id for these stats
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id
+      - name: nb_decklists
+        description: Number of wins of deck_id against against_deck_id in set set_code
+        data_type: int
+        data_tests:
+          - not_null
+      - name: usage_rate
+        description: proportion of decks in the season
+        data_type: float
+        data_tests:
+          - not_null
+      - name: usage_rank
+        description: rank of usage rate
+        data_type: int
+        data_tests:
+          - not_null
+  - name: card_in_deck_usage
+    description: for each set, each deck and each card, the number of decklists submitted
+    config:
+      group: transform
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [set_code, deck_id, card_url]
+    columns:
+      - name: set_code
+        description: The tournament set code for when matches used for this stats occured
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: deck_id
+        description: Deck id for these stats
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('decks')
+              field: deck_id
+      - name: card_url
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('cards')
+              field: card_url
+      - name: average_count
+        description: Average number of this card in this deck for this season
+        data_type: float
+        data_tests:
+          - not_null
+      - name: nb_decklists
+        description: Number of decklists submitted in this season, in this deck, with this card
+        data_type: int
+        data_tests:
+          - not_null
+      - name: usage_rate
+        description: proportion of decks in the season
+        data_type: float
+        data_tests:
+          - not_null
