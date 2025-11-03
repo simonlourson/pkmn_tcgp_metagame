@@ -12,6 +12,6 @@ uv sync
 dagster dev
 ```
 ## Interesting things about this repo
-* [Metabase resource](https://medium.com/@louislourson/using-a-modern-data-stack-to-analyze-the-pokemon-tcg-pocket-metagame-6ed69c01c9d5) to handle API connections
-* [Custom Postgres IO manager](https://medium.com/@louislourson/using-a-modern-data-stack-to-analyze-the-pokemon-tcg-pocket-metagame-6ed69c01c9d5) to store asset results
-* [Infrastructure diagram](https://medium.com/@louislourson/using-a-modern-data-stack-to-analyze-the-pokemon-tcg-pocket-metagame-6ed69c01c9d5)
+* [Metabase resource](https://github.com/simonlourson/pkmn_tcgp_metagame/blob/main/pkmn_tcgp_metagame/metabase/metabase_resource.py) to handle API connections
+* [Custom Postgres IO manager](https://github.com/simonlourson/pkmn_tcgp_metagame/blob/main/pkmn_tcgp_metagame/postgres/postgres_io_manager.py) to store asset results
+* [Infrastructure diagram](https://github.com/simonlourson/pkmn_tcgp_metagame/blob/main/infrastructure.md)
